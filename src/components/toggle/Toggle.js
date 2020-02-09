@@ -2,9 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { toggleMessage } from '../redux/actions'
+import { toggleMessage } from './actions'
+import { getMovies } from '../movies/actions'
 
-const Toggle = ({ messageVisibility, toggleMessage }) => (
+const Toggle = ({ messageVisibility, toggleMessage, getMovies }) => (
   <div>
     {messageVisibility && 
       <p>You will be seeing this if redux action is toggled</p>
@@ -12,15 +13,19 @@ const Toggle = ({ messageVisibility, toggleMessage }) => (
     <button onClick={toggleMessage}>
        Toggle me
     </button>
+    <button onClick={getMovies}>
+       Load movies
+    </button>
   </div>
 )
 
 const mapStateToProps = state => ({
-  messageVisibility: state.message.messageVisibility
+  messageVisibility: state.toggle.messageVisibility
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  toggleMessage
+  toggleMessage,
+  getMovies
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toggle)

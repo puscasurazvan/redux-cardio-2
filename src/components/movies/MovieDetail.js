@@ -14,7 +14,7 @@ class MovieDetail extends Component {
 
   async componentDidMount() {
     try {
-      const res = await fetch(`https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=65e043c24785898be00b4abc12fcdaae&language=en-US`);
+      const res = await fetch(`https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=57240bdabb8dfb0b7208b0e2c4076d5d&language=en-US`);
       const movie = await res.json();
       this.setState({
         movie,

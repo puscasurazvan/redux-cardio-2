@@ -1,25 +1,21 @@
 import React from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { applyMiddleware, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import logger from 'redux-logger'
+import thunk from 'redux-thunk'
 
 import logo from './logo.svg'
 import './App.css'
 
-import MoviesList from './components/MoviesList'
-import MovieDetail from './components/MovieDetail'
-import Toggle from './components/Toggle'
+import MoviesList from './components/movies/MoviesList'
+import MovieDetail from './components/movies/MovieDetail'
+import Toggle from './components/toggle/Toggle'
 
-import rootReducer from './redux/rootReducer'
+import rootReducer from './rootReducer'
 
-const middleWare = [logger]
+const middleWare = [logger, thunk]
 
 
 const store = createStore(

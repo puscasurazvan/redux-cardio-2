@@ -1,35 +1,41 @@
 /* eslint react/no-did-mount-set-state: 0 */
-import React, { PureComponent } from 'react';
-import styled from 'styled-components';
-import Movie from './Movie';
+import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import styled from 'styled-components'
+import Movie from './Movie'
+import { getMovies } from './actions'
 
 class MoviesList extends PureComponent {
-  state = {
-    movies: [],
-  }
 
-  async componentDidMount() {
-    try {
-      const res = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=65e043c24785898be00b4abc12fcdaae&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1');
-      const movies = await res.json();
-      this.setState({
-        movies: movies.results,
-      });
-    } catch (e) {
-      console.log(e);
+  componentDidMount() {
+    const { getMovies, isLoaded } = this.props
+    if(!isLoaded) {
+      getMovies()
     }
   }
 
   render() {
+    const { movies } = this.props
     return (
       <MovieGrid>
-        {this.state.movies.map(movie => <Movie key={movie.id} movie={movie} />)}
+        {movies.map(movie => <Movie key={movie.id} movie={movie} />)}
       </MovieGrid>
-    );
+    )
   }
 }
 
-export default MoviesList;
+const mapStateToProps = state => ({
+  movies: state.movies.movies,
+  isLoaded: state.movies.moviesLoaded
+})
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  getMovies
+}, dispatch)
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoviesList)
 
 const MovieGrid = styled.div`
   display: grid;

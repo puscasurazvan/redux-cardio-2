@@ -6,8 +6,9 @@ import {
   Link,
 } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import logger from 'redux-logger'
 
 import logo from './logo.svg'
 import './App.css'
@@ -18,10 +19,13 @@ import Toggle from './components/Toggle'
 
 import rootReducer from './redux/rootReducer'
 
+const middleWare = [logger]
+
+
 const store = createStore(
   rootReducer,
   {},
-  composeWithDevTools(),
+  composeWithDevTools(applyMiddleware(...middleWare)),
   )
 
 const App = () => (

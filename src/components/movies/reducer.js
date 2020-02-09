@@ -4,6 +4,7 @@ const initialState = {
   movies: [],
   movie: {},
   movieLoaded: false,
+  moviesLoadedAt: null,
   moviesLoaded: false
 }
 
@@ -14,6 +15,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         movies: data,
+        moviesLoadedAt: new Date(),
         moviesLoaded: true,
       }
     case GET_MOVIE:
